@@ -1,0 +1,64 @@
+<%= extend('../layout/control-layout') %>
+    
+
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <% if(hasinfo){ %>
+      <div class="bg-warning form-control border-0 mb-3">
+          <%- message %>
+      </div>
+    <% } %>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>名稱</th>
+          <th>路徑</th>
+          <th width="30"></th>
+        </tr>
+      </thead>
+      <tbody>
+          <% for( var i in categories) { %>
+                  <tr>
+            <td class="align-middle"><%- categories[i].category_name %></td>
+            <td><input type="text" class="form-control form-control-sm" readonly value="<%- categories[i].category_path %>"></td>
+            <td class="align-middle">
+              <form action="/dashboard/categories/delete/<%- categories[i].category_id %>" method="POST">
+                <button type="submit" class="btn btn-outline-danger btn-sm">刪除</button>
+              </form>
+            </td>
+          </tr>
+        <% } %>
+      </tbody>
+    </table>
+    <form action="/dashboard/categories/create" method="POST">
+      <table class="table">
+        <tr>
+          <td class="align-middle">新增</td>
+          <td style="display: none">
+              <label for="cateID">分類id</label>
+              <input type="text" class="form-control" id="cateID" name="cateID" >
+            </td>
+          <td>
+            <label for="name">分類名稱</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="請輸入分類名稱">
+          </td>
+          <td colspan="2">
+            <label for="path">路徑</label>
+            <input type="text" class="form-control" id="path" name="path" placeholder="請輸入分類路徑">
+          </td>
+        </tr>
+      </table>
+      <div class="text-right">
+        <button type="submit" class="btn btn-primary" onclick="addID()">更新資訊</button>
+      </div>
+    </form>
+
+  </div>
+</div>
+
+<script>
+function addID(){
+            var cateID= document.getElementsByName('cateID')
+            cateID[0].value = Math.random().toString(36).slice(2);
+        }
+</script>

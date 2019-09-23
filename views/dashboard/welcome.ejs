@@ -1,0 +1,23 @@
+<%= extend('../layout/control-layout') %>
+
+    <div class="row justify-content-center">
+        <% if(uid) { %>   
+      <div class="col-sm-6">
+        <div class="alert alert-warning" >歡迎︰<%- uid %> </div>
+            <div class="form-group"><h2>請點選按鈕進行畫面跳轉</h2></div>
+
+          <div class="text-right mt-3">
+              <a class="btn btn-primary" href="/dashboard/archives">文章管理</a>
+              <a class="btn btn-primary" href="/dashboard/categories">分類管理</a>
+          </div>
+      </div>
+      <% }  else { %>
+        <div class="form-group"><h2 style="position: relative;  right: 13px;">請先登入</h2>
+
+        <div >
+            <a class="btn btn-primary" href="/sign/login">點此登入</a>
+        </div>
+      </div>
+        <% } %>
+
+    </div>

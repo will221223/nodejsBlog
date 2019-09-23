@@ -1,0 +1,73 @@
+<%= extend('../layout/control-layout') %>
+<% 
+if(article === undefined){
+  var article = {}
+}
+%>
+<form 
+<% if (article.article_id) { %>
+  action="/dashboard/article/update/<%- article.article_id %>"
+<% } else { %>
+  action="/dashboard/article/create"
+  <% } %>
+  method="POST" 
+  class="row justify-content-center">
+  <div class="col-md-6">
+    
+    <label for="title">請輸入標題</label>
+    <input type="text" id="title" class="form-control" name="title" placeholder="標題" value="<%- '' || article.article_title %>">
+    <input type="text" class="d-none" id="articleID" name="articleID">
+    <hr>
+    <textarea name="content" id="editor" class="form-control">
+        <%- '' || article.article_content  %>
+    </textarea>
+    <script>
+			CKEDITOR.replace( 'content' );
+		</script>
+  </div>
+  <div class="col-md-3">
+    
+    <div class="card mb-3">
+      <h6 class="card-header">分類</h6>
+      <div class="card-body">
+        <% for (var i in categories) { %>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input class="form-check-input" type="radio" name="category" 
+              <% if(categories[i].category_id === article.article_category){ %> checked <% } %>
+              required value="<%- categories[i].category_id%>" >
+              <%- categories[i].category_name%>
+            </label>
+          </div>
+        <% } %>
+      </div>
+    </div>
+
+    <div class="card mb-3">
+      <h6 class="card-header">是否公開</h6>
+      <div class="card-body">
+        <div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
+          <label class="btn btn-outline-primary w-100  <% if(article.article_status === 'draft' ) { %> active <% } %>">
+            <input type="radio" name="status" autocomplete="off"
+             value="draft"  <% if(article.article_status === 'draft' ) { %> checked <% } %> > 草稿
+          </label>
+          <label class="btn btn-outline-primary w-100 <% if(article.article_status === 'public' ) { %> active <% } %>">
+            <input type="radio" name="status" autocomplete="off" 
+            value="public"  <% if(article.article_status === 'public' ) { %> checked <% } %> > 公開
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-group w-100">
+      <button type="submit" class="btn btn-outline-primary w-100" onclick="addID()">儲存</button>
+    </div>
+  </div>
+</form>
+
+<script>
+function addID(){
+  var articleID= document.getElementsByName('articleID')
+  articleID[0].value = Math.random().toString(36).slice(2);
+}
+</script>
