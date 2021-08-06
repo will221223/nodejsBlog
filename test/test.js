@@ -6,7 +6,7 @@ describe("test 1", function(){
   
   it("check return true", function(){
     
-      var result = true
+      var result = false
       assert.ok(result);
   })
   
